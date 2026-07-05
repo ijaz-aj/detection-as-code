@@ -1,0 +1,16 @@
+# Detection-as-Code — Python dependencies
+# Install into a virtual environment:  pip install -r requirements.txt
+
+# --- Sigma tooling: author + convert rules to SIEM query languages ---
+sigma-cli                       # `sigma` CLI: convert, validate, list backends
+pysigma                         # core Sigma engine (pulled in by sigma-cli, pinned for clarity)
+pysigma-backend-splunk          # Sigma -> Splunk SPL
+pysigma-backend-elasticsearch   # Sigma -> Elastic (ES|QL / Lucene / EQL)
+pysigma-backend-kusto           # Sigma -> Microsoft Sentinel (KQL / Kusto)
+
+# --- Automation (Phase 5 phishing/IOC triage tool) ---
+requests                        # HTTP client for VirusTotal / URLScan.io enrichment
+
+# --- Testing / validation ---
+pytest                          # runs the rule-validation test suite
+pyyaml                          # parse Sigma YAML in tests

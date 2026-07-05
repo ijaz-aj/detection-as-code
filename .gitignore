@@ -1,0 +1,23 @@
+# Secrets — never commit API keys or credentials
+.env
+*.env
+!.env.example
+
+# Python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Local reports that may contain real IOC lookups (demo outputs are fine to commit selectively)
+docs/reports/*.md
+!docs/reports/.gitkeep
