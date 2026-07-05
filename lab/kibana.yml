@@ -1,0 +1,53 @@
+# Kibana Fleet preconfiguration for the Detection-as-Code lab.
+# Mounted into the Kibana container. Connection/secret settings come from
+# environment variables in docker-compose.yml; this file holds only the Fleet
+# preconfiguration, which Kibana reads reliably from YAML (but not from env vars).
+#
+# The lab runs Elasticsearch over HTTP (auth on, TLS off), so all hosts are http://.
+
+# Where enrolled agents send their data. The host-only IP 192.168.56.1 is
+# reachable by the Windows VM (and Docker publishes ES on it).
+xpack.fleet.outputs:
+  - id: fleet-default-output
+    name: default
+    type: elasticsearch
+    hosts: ["http://192.168.56.1:9200"]
+    is_default: true
+    is_default_monitoring: true
+
+# Where agents reach Fleet Server (host-only IP, published by Docker).
+xpack.fleet.agents.fleet_server.hosts: ["http://192.168.56.1:8220"]
+
+# Integration packages to install automatically on startup.
+xpack.fleet.packages:
+  - name: fleet_server
+    version: latest
+  - name: system
+    version: latest
+  - name: windows
+    version: latest
+
+# Agent policies created automatically on startup.
+xpack.fleet.agentPolicies:
+  # Policy the Fleet Server container attaches to.
+  - name: Fleet Server Policy
+    id: fleet-server-policy
+    namespace: default
+    monitoring_enabled: [logs, metrics]
+    package_policies:
+      - name: fleet_server-1
+        package:
+          name: fleet_server
+  # Policy the Windows VM's Elastic Agent will enrol into (collects Windows +
+  # Sysmon event logs via the Windows integration).
+  - name: DaC Windows Endpoint
+    id: dac-endpoint-policy
+    namespace: default
+    monitoring_enabled: [logs, metrics]
+    package_policies:
+      - name: system-1
+        package:
+          name: system
+      - name: windows-1
+        package:
+          name: windows
