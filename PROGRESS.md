@@ -76,7 +76,7 @@ Rules completed (2 / 12):
 - [x] 8. User added to privileged group — Persistence+PrivEsc / T1098 — Security 4732 (SID-based)
 - [x] 9. Office->shell parent-child — Execution / T1059 — Sysmon 1 (parent-child logic)
 - [x] 10. DNS query to suspicious TLD — C2 / T1071.004 — Sysmon 22 (hunting-grade, level low)
-- [ ] 11. Renamed system binary — Defense Evasion / T1036.003 — Sysmon 1
+- [x] 11. Renamed system binary — Defense Evasion / T1036.003 — Sysmon 1 (OriginalFileName mismatch)
 - [ ] 12. PowerShell download cradle — Execution / T1059.001 — Sysmon 1
 ## Phase 3 — Attack → detect → tune  ⬜ not started
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
