@@ -11,7 +11,7 @@ references:
 author: ijaz-aj
 date: 2026-07-06
 tags:
-  - attack.credential-access
+  - attack.credential_access
   - attack.t1003.001
 logsource:
   product: windows

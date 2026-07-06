@@ -47,10 +47,17 @@ Every rule **must** include all of the following top-level Sigma fields. These a
 - Always pair the **technique** and its **tactic**:
   ```yaml
   tags:
-    - attack.credential-access      # tactic
+    - attack.credential_access      # tactic
     - attack.t1003.001              # technique (sub-technique here)
   ```
 - Use the exact lowercase ATT&CK IDs. Sub-techniques use a dot: `t1003.001`.
+- **Multi-word tactics use an underscore** (SigmaHQ convention): `attack.defense_evasion`,
+  `attack.credential_access`, `attack.privilege_escalation`, `attack.lateral_movement`,
+  `attack.command_and_control`, `attack.initial_access`, `attack.resource_development`.
+
+> **Validation note:** run `sigma check` with `-x attacktag`. The `attacktag` validator in
+> pySigma 1.4.0 ships an outdated tactic list (it calls Defense Evasion "stealth") and wrongly
+> flags correct SigmaHQ-convention tags, so we exclude that one validator while keeping all others.
 
 ### `logsource`
 - Be specific about the telemetry the rule depends on. Examples:
