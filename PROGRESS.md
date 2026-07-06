@@ -47,7 +47,7 @@ Host decisions: 16 GB RAM machine, so Elastic is RAM-tuned (ES heap 1 GB, mem li
       + wiped fleetserverdata to force re-bootstrap. Enrol with --insecure (HTTP Fleet Server).
 - [x] Live telemetry confirmed in ES: Sysmon Event ID 1 = 374, EID 11 = 668; Security 4624 = 387,
       4672 = 358. Data streams logs-windows.sysmon_operational + logs-system.security populated.
-- [ ] Screenshots to docs/screenshots/ — USER TODO (Fleet agents healthy, Discover w/ Sysmon events)
+- [x] Screenshots to docs/screenshots/ — 01-fleet-healthy.png + 02-sysmon-discover.png (committed)
 
 ## Phase 2 — Write the detections  ✅ complete (2026-07-06)
 
