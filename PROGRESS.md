@@ -49,7 +49,31 @@ Host decisions: 16 GB RAM machine, so Elastic is RAM-tuned (ES heap 1 GB, mem li
       4672 = 358. Data streams logs-windows.sysmon_operational + logs-system.security populated.
 - [ ] Screenshots to docs/screenshots/ — USER TODO (Fleet agents healthy, Discover w/ Sysmon events)
 
-## Phase 2 — Write the detections  ⬜ not started
+## Phase 2 — Write the detections  🚧 in progress
+
+**Goal:** author 12 Sigma rules meeting docs/detection-standard.md, each compiled to Splunk SPL,
+Elastic (Lucene/ECS), and Microsoft Sentinel (KQL).
+
+Conversion strategy (per rule's telemetry):
+- Splunk: `-t splunk -p splunk_windows`
+- Elastic: `-t lucene -p ecs_windows` (ECS fields, matches lab data)
+- Sentinel: process_creation rules -> `-t kusto -p microsoft_xdr` (DeviceProcessEvents, full query);
+  other Sysmon events -> `-t kusto -O query_table=Sysmon` condition wrapped as `Sysmon | where ...`;
+  Windows Security events -> to use SecurityEvent-table pipeline when we reach them.
+
+Rules completed (2 / 12):
+- [x] 1. PowerShell encoded command — Execution / T1059.001 — Sysmon EID 1
+- [x] 2. LSASS memory access — Credential Access / T1003.001 — Sysmon EID 10
+- [ ] 3. mshta/rundll32 abuse — Defense Evasion / T1218
+- [ ] 4. Failed logon brute force — Credential Access / T1110 — Security 4625
+- [ ] 5. New service install — Persistence / T1543.003 — Security 7045
+- [ ] 6. Scheduled task creation — Persistence / T1053.005 — Security 4698
+- [ ] 7. RDP logon type 10 — Lateral Movement / T1021.001 — Security 4624
+- [ ] 8. Account created then added to admins — Persistence / T1136+T1098 — 4720/4732
+- [ ] 9. Suspicious Office->shell parent-child — Execution / T1059 — Sysmon 1
+- [ ] 10. DNS query to suspicious TLD — C2 / T1071.004 — Sysmon 22
+- [ ] 11. Renamed system binary — Defense Evasion / T1036.003 — Sysmon 1
+- [ ] 12. PowerShell download cradle — Execution / T1059.001 — Sysmon 1
 ## Phase 3 — Attack → detect → tune  ⬜ not started
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
