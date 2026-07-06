@@ -49,7 +49,7 @@ Host decisions: 16 GB RAM machine, so Elastic is RAM-tuned (ES heap 1 GB, mem li
       4672 = 358. Data streams logs-windows.sysmon_operational + logs-system.security populated.
 - [ ] Screenshots to docs/screenshots/ — USER TODO (Fleet agents healthy, Discover w/ Sysmon events)
 
-## Phase 2 — Write the detections  🚧 in progress
+## Phase 2 — Write the detections  ✅ complete (2026-07-06)
 
 **Goal:** author 12 Sigma rules meeting docs/detection-standard.md, each compiled to Splunk SPL,
 Elastic (Lucene/ECS), and Microsoft Sentinel (KQL).
@@ -77,7 +77,10 @@ Rules completed (2 / 12):
 - [x] 9. Office->shell parent-child — Execution / T1059 — Sysmon 1 (parent-child logic)
 - [x] 10. DNS query to suspicious TLD — C2 / T1071.004 — Sysmon 22 (hunting-grade, level low)
 - [x] 11. Renamed system binary — Defense Evasion / T1036.003 — Sysmon 1 (OriginalFileName mismatch)
-- [ ] 12. PowerShell download cradle — Execution / T1059.001 — Sysmon 1
+- [x] 12. PowerShell download cradle — Execution / T1059.001 — Sysmon 1
+
+**Result:** 12 rules, 12 ATT&CK techniques, 7 tactics, all lint-clean; 36 compiled queries
+(12 Splunk SPL + 12 Elastic + 12 Sentinel KQL).
 ## Phase 3 — Attack → detect → tune  ⬜ not started
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started

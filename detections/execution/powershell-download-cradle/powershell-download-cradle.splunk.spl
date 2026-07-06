@@ -1,0 +1,1 @@
+Image IN ("*\\powershell.exe", "*\\pwsh.exe") OR OriginalFileName IN ("PowerShell.EXE", "pwsh.dll") CommandLine IN ("*DownloadString*", "*DownloadFile*", "*DownloadData*", "*Net.WebClient*", "*Invoke-WebRequest*", "*iwr *", "*Invoke-RestMethod*", "*Start-BitsTransfer*")
