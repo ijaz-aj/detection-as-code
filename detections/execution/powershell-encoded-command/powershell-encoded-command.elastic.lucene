@@ -1,0 +1,2 @@
+Parsing Sigma rules
+((process.executable:(*\\powershell.exe OR *\\pwsh.exe)) OR (process.pe.original_file_name:(PowerShell.EXE OR pwsh.dll))) AND (process.command_line:(*\ \-enc* OR *\ \-ec\ * OR *\ \-e\ *))
