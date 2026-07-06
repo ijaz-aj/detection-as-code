@@ -1,0 +1,1 @@
+(process.executable:*\\mshta.exe AND (process.command_line:(*http\:\/\/* OR *https\:\/\/* OR *vbscript* OR *javascript*))) OR (process.executable:*\\rundll32.exe AND (process.command_line:(*javascript\:* OR *http\:\/\/* OR *https\:\/\/*)))
