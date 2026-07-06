@@ -1,0 +1,4 @@
+// Microsoft Sentinel (KQL). Security-log 4698 events land in the 'SecurityEvent' table.
+// TaskContent may require parsing from EventData depending on the connector; adjust to schema.
+SecurityEvent
+| where EventID == 4698 and (TaskContent contains "powershell" or TaskContent contains " -enc" or TaskContent contains "cmd.exe" or TaskContent contains "cmd /c" or TaskContent contains "rundll32" or TaskContent contains "mshta" or TaskContent contains "\\Temp\\" or TaskContent contains "\\AppData\\" or TaskContent contains "\\Users\\Public\\" or TaskContent contains "http://" or TaskContent contains "https://" or TaskContent contains ".bat" or TaskContent contains ".vbs")

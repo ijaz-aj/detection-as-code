@@ -1,0 +1,1 @@
+winlog.channel:Security AND (event.code:4698 AND (winlog.event_data.TaskContent:(*powershell* OR *\ \-enc* OR *cmd.exe* OR *cmd\ \/c* OR *rundll32* OR *mshta* OR *\\Temp\\* OR *\\AppData\\* OR *\\Users\\Public\\* OR *http\:\/\/* OR *https\:\/\/* OR *.bat* OR *.vbs*)))
