@@ -1,0 +1,1 @@
+TargetImage="*\\lsass.exe" GrantedAccess IN ("0x1010", "0x1410", "0x1418", "0x1438", "0x143a", "0x147a") NOT (SourceImage IN ("*\\wininit.exe", "*\\csrss.exe", "*\\wmiprvse.exe", "*\\MsMpEng.exe"))

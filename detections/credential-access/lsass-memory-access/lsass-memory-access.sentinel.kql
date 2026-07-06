@@ -1,0 +1,4 @@
+// Microsoft Sentinel (KQL). Assumes Sysmon EID 10 (ProcessAccess) is ingested into a
+// Log Analytics table named 'Sysmon'. Adjust the table name to match your ingestion.
+Sysmon
+| where (TargetImage endswith "\\lsass.exe" and (GrantedAccess in~ ("0x1010", "0x1410", "0x1418", "0x1438", "0x143a", "0x147a"))) and (not((SourceImage endswith "\\wininit.exe" or SourceImage endswith "\\csrss.exe" or SourceImage endswith "\\wmiprvse.exe" or SourceImage endswith "\\MsMpEng.exe")))
