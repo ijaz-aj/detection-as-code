@@ -1,0 +1,1 @@
+source="WinEventLog:System" Provider_Name="Service Control Manager" EventCode=7045 ImagePath IN ("*powershell*", "*cmd.exe*", "*cmd /c*", "* -enc*", "*rundll32*", "*mshta*", "*\\Temp\\*", "*\\AppData\\*", "*\\Users\\Public\\*", "*.bat*", "*.vbs*", "*PSEXESVC*")

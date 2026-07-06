@@ -1,0 +1,5 @@
+// Microsoft Sentinel (KQL). System-log service-install events (7045) land in the 'Event'
+// table (legacy agent) or 'WindowsEvent' (AMA/DCR). Depending on the connector, ImagePath
+// may need parsing from ParameterXml; adjust field names to your ingestion schema.
+Event
+| where (Provider_Name =~ "Service Control Manager" and EventID == 7045) and (ImagePath contains "powershell" or ImagePath contains "cmd.exe" or ImagePath contains "cmd /c" or ImagePath contains " -enc" or ImagePath contains "rundll32" or ImagePath contains "mshta" or ImagePath contains "\\Temp\\" or ImagePath contains "\\AppData\\" or ImagePath contains "\\Users\\Public\\" or ImagePath contains ".bat" or ImagePath contains ".vbs" or ImagePath contains "PSEXESVC")

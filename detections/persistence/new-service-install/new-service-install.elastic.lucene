@@ -1,0 +1,1 @@
+winlog.channel:System AND ((winlog.provider_name:Service\ Control\ Manager AND event.code:7045) AND (winlog.event_data.ImagePath:(*powershell* OR *cmd.exe* OR *cmd\ \/c* OR *\ \-enc* OR *rundll32* OR *mshta* OR *\\Temp\\* OR *\\AppData\\* OR *\\Users\\Public\\* OR *.bat* OR *.vbs* OR *PSEXESVC*)))

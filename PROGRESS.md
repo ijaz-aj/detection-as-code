@@ -70,7 +70,7 @@ Rules completed (2 / 12):
 - [x] 2. LSASS memory access — Credential Access / T1003.001 — Sysmon EID 10
 - [x] 3. mshta/rundll32 abuse — Defense Evasion / T1218.005+011 — Sysmon EID 1
 - [x] 4. Failed logon brute force — Credential Access / T1110 — Security 4625 (correlation rule)
-- [ ] 5. New service install — Persistence / T1543.003 — Security 7045
+- [x] 5. New service install — Persistence+PrivEsc / T1543.003 — System 7045
 - [ ] 6. Scheduled task creation — Persistence / T1053.005 — Security 4698
 - [ ] 7. RDP logon type 10 — Lateral Movement / T1021.001 — Security 4624
 - [ ] 8. Account created then added to admins — Persistence / T1136+T1098 — 4720/4732
