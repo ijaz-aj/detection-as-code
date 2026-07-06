@@ -1,0 +1,1 @@
+QueryName IN ("*.tk", "*.gq", "*.ml", "*.cf", "*.ga", "*.xyz", "*.top", "*.work", "*.click", "*.rest", "*.zip", "*.mov") NOT (Image IN ("*\\chrome.exe", "*\\msedge.exe", "*\\firefox.exe", "*\\brave.exe", "*\\opera.exe"))

@@ -1,0 +1,1 @@
+(dns.question.name:(*.tk OR *.gq OR *.ml OR *.cf OR *.ga OR *.xyz OR *.top OR *.work OR *.click OR *.rest OR *.zip OR *.mov)) AND (NOT (process.executable:(*\\chrome.exe OR *\\msedge.exe OR *\\firefox.exe OR *\\brave.exe OR *\\opera.exe)))

@@ -1,0 +1,4 @@
+// Microsoft Sentinel (KQL). Sysmon EID 22 (DnsQuery) events; assumes Sysmon is ingested into a
+// 'Sysmon' table (or map to DeviceNetworkEvents if using Defender XDR).
+Sysmon
+| where (QueryName endswith ".tk" or QueryName endswith ".gq" or QueryName endswith ".ml" or QueryName endswith ".cf" or QueryName endswith ".ga" or QueryName endswith ".xyz" or QueryName endswith ".top" or QueryName endswith ".work" or QueryName endswith ".click" or QueryName endswith ".rest" or QueryName endswith ".zip" or QueryName endswith ".mov") and (not((Image endswith "\\chrome.exe" or Image endswith "\\msedge.exe" or Image endswith "\\firefox.exe" or Image endswith "\\brave.exe" or Image endswith "\\opera.exe")))
