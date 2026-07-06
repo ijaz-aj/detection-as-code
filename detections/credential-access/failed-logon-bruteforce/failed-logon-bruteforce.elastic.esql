@@ -1,0 +1,3 @@
+from * metadata _id, _index, _version | where winlog.channel=="Security" and event.code=="4625"
+| eval timebucket=date_trunc(5minutes, @timestamp) | stats event_count=count() by timebucket, winlog.event_data.TargetUserName
+| where event_count >= 10

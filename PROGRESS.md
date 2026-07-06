@@ -59,13 +59,17 @@ Conversion strategy (per rule's telemetry):
 - Elastic: `-t lucene -p ecs_windows` (ECS fields, matches lab data)
 - Sentinel: process_creation rules -> `-t kusto -p microsoft_xdr` (DeviceProcessEvents, full query);
   other Sysmon events -> `-t kusto -O query_table=Sysmon` condition wrapped as `Sysmon | where ...`;
-  Windows Security events -> to use SecurityEvent-table pipeline when we reach them.
+  Windows Security events -> SecurityEvent table.
+- Lint with `sigma check -x attacktag` (pySigma 1.4.0 attacktag validator has an outdated tactic list).
+- Correlation/aggregation rules (e.g. brute force): Splunk converts natively; Elastic needs **ES|QL**
+  (`-t esql`, Lucene/EQL can't do correlations); Sentinel Kusto backend has no correlation support yet
+  so the KQL is hand-authored (documented in the rule's .kql file).
 
 Rules completed (2 / 12):
 - [x] 1. PowerShell encoded command — Execution / T1059.001 — Sysmon EID 1
 - [x] 2. LSASS memory access — Credential Access / T1003.001 — Sysmon EID 10
-- [ ] 3. mshta/rundll32 abuse — Defense Evasion / T1218
-- [ ] 4. Failed logon brute force — Credential Access / T1110 — Security 4625
+- [x] 3. mshta/rundll32 abuse — Defense Evasion / T1218.005+011 — Sysmon EID 1
+- [x] 4. Failed logon brute force — Credential Access / T1110 — Security 4625 (correlation rule)
 - [ ] 5. New service install — Persistence / T1543.003 — Security 7045
 - [ ] 6. Scheduled task creation — Persistence / T1053.005 — Security 4698
 - [ ] 7. RDP logon type 10 — Lateral Movement / T1021.001 — Security 4624

@@ -1,0 +1,7 @@
+// Microsoft Sentinel (KQL). Hand-authored: the pySigma kusto backend does not yet
+// support Sigma correlation (event_count) rules, though KQL supports the aggregation.
+// Equivalent of: >= 10 failed logons (4625) per account within 5 minutes.
+SecurityEvent
+| where EventID == 4625
+| summarize event_count = count() by TargetUserName, bin(TimeGenerated, 5m)
+| where event_count >= 10

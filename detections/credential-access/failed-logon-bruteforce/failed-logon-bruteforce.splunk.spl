@@ -1,0 +1,6 @@
+source="WinEventLog:Security" EventCode=4625
+
+| bin _time span=5m
+| stats count as event_count by _time TargetUserName
+
+| search event_count >= 10
