@@ -1,0 +1,3 @@
+// Microsoft Sentinel (KQL). Security-log 4732 events land in the 'SecurityEvent' table.
+SecurityEvent
+| where EventID == 4732 and (TargetSid in~ ("S-1-5-32-544", "S-1-5-32-555"))
