@@ -72,7 +72,7 @@ Rules completed (2 / 12):
 - [x] 4. Failed logon brute force — Credential Access / T1110 — Security 4625 (correlation rule)
 - [x] 5. New service install — Persistence+PrivEsc / T1543.003 — System 7045
 - [x] 6. Scheduled task creation — Persistence+Execution / T1053.005 — Security 4698
-- [ ] 7. RDP logon type 10 — Lateral Movement / T1021.001 — Security 4624
+- [x] 7. RDP logon type 10 — Lateral Movement / T1021.001 — Security 4624 (azure_monitor maps it clean)
 - [ ] 8. Account created then added to admins — Persistence / T1136+T1098 — 4720/4732
 - [ ] 9. Suspicious Office->shell parent-child — Execution / T1059 — Sysmon 1
 - [ ] 10. DNS query to suspicious TLD — C2 / T1071.004 — Sysmon 22

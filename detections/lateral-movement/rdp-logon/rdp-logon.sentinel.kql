@@ -1,0 +1,2 @@
+SecurityEvent
+| where (EventID == 4624 and LogonType == 10) and (not((TargetUserName endswith "$" or (IpAddress in~ ("-", "127.0.0.1", "::1")))))
