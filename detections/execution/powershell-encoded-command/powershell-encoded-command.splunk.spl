@@ -1,2 +1,1 @@
-Parsing Sigma rules
-Image IN ("*\\powershell.exe", "*\\pwsh.exe") OR OriginalFileName IN ("PowerShell.EXE", "pwsh.dll") CommandLine IN ("* -enc*", "* -ec *", "* -e *")
+Image IN ("*\\powershell.exe", "*\\pwsh.exe") OR OriginalFileName IN ("PowerShell.EXE", "pwsh.dll") CommandLine IN ("* -e *", "* -E *", "* -ec *", "* -EC *", "* -enc*", "* -Enc*", "* -ENC*", "* -encodedcommand*", "* -EncodedCommand*")

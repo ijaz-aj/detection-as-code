@@ -81,7 +81,18 @@ Rules completed (2 / 12):
 
 **Result:** 12 rules, 12 ATT&CK techniques, 7 tactics, all lint-clean; 36 compiled queries
 (12 Splunk SPL + 12 Elastic + 12 Sentinel KQL).
-## Phase 3 — Attack → detect → tune  ⬜ not started
+## Phase 3 — Attack → detect → tune  🚧 in progress
+
+Atomic Red Team installed on the VM (`C:\AtomicRedTeam`), Defender exclusion added.
+Verify detections against live ES with `scratchpad` queries / Python (elastic:DacLab-Elastic-2026).
+
+Case studies (docs/case-studies/):
+- [x] T1059.001 encoded PowerShell — ran ATH test 15 (`-E`), Rule 1 MISSED in Elastic (Lucene is
+      case-sensitive; Sigma case-insensitivity didn't survive). TUNED with case variants → now
+      catches pid 8008. Splunk/Sentinel already caught it (case-insensitive operators). Regex `|re`
+      modifier unsupported by the pySigma elasticsearch backend.
+- [ ] T1003.001 LSASS — needs Sysmon EID 10 enabled (verify)
+- [ ] remaining techniques…
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
 ## Phase 6 — Polish and publish  ⬜ not started

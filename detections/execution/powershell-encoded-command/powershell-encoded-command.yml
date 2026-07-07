@@ -25,11 +25,21 @@ detection:
     - OriginalFileName:
         - 'PowerShell.EXE'
         - 'pwsh.dll'
+  # Case/abbreviation variants of -EncodedCommand. Splunk and Sentinel match
+  # case-insensitively, but Elastic Lucene matches the command_line keyword
+  # CASE-SENSITIVELY, so we enumerate the common casings here. The robust
+  # deployment fix on Elastic is a lowercased/case-insensitive command_line field.
   selection_flag:
     CommandLine|contains:
-      - ' -enc'
-      - ' -ec '
       - ' -e '
+      - ' -E '
+      - ' -ec '
+      - ' -EC '
+      - ' -enc'
+      - ' -Enc'
+      - ' -ENC'
+      - ' -encodedcommand'
+      - ' -EncodedCommand'
   condition: selection_img and selection_flag
 falsepositives:
   - Microsoft SCCM / Intune and some software installers run encoded PowerShell
