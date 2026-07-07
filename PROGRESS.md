@@ -108,6 +108,10 @@ Case studies (docs/case-studies/):
       CORRELATION-rule validation: verified via ES|QL aggregation (stats count by TargetUserName |
       where >= 10) → bruteforce_test event_count=30, over the ≥10 threshold. Clean catch, no tuning.
       Skill: correlation-verify (aggregate/threshold), not single-event match.
+- [x] T1036.003 renamed system binary — ATH test 5 (powershell.exe copied to %APPDATA%\taskhostw.exe
+      and run). Clean catch: Rule 11 returned only the masquerade (Image=taskhostw.exe,
+      OriginalFileName=PowerShell.EXE) and correctly ignored the legit powershell (filter works).
+      Validates the PE-metadata-mismatch idea. Noted scope limit (curated OriginalFileName list).
 - [ ] remaining techniques…
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
