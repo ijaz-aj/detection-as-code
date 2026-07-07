@@ -91,7 +91,14 @@ Case studies (docs/case-studies/):
       case-sensitive; Sigma case-insensitivity didn't survive). TUNED with case variants → now
       catches pid 8008. Splunk/Sentinel already caught it (case-insensitive operators). Regex `|re`
       modifier unsupported by the pySigma elasticsearch backend.
-- [ ] T1003.001 LSASS — needs Sysmon EID 10 enabled (verify)
+- [x] T1218.005 mshta — ATH test 2 (vbscript). Defender blocked it first (real-time protection;
+      folder exclusion didn't cover inline vbscript from system32) → disabled RTP on lab VM.
+      Rule 3 clean catch, first try, no tuning. Screenshot still TODO.
+- [x] T1003.001 LSASS — ATH test 2 (comsvcs.dll MiniDump). THREE findings: (1) sensor gap — Sysmon
+      EID 10 disabled by default in SwiftOnSecurity config → enabled ProcessAccess for lsass +
+      reloaded; (2) precision — Elastic Agent (agentbeat.exe) flooded rule with 0x1010 FPs (136 hits)
+      → excluded `\Elastic\Agent\` by path; (3) recall — dump's 0x1fffff full-access open was missed
+      → added 0x1fffff. After tune: 136 → 2 clean rundll32→lsass hits. Best case study of the project.
 - [ ] remaining techniques…
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
