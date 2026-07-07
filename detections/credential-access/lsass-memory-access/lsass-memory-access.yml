@@ -26,13 +26,16 @@ detection:
       - '0x1438'
       - '0x143a'
       - '0x147a'
+      - '0x1fffff'          # ADD: full access (PROCESS_ALL_ACCESS) - recall
   filter_legit:
     SourceImage|endswith:
       - '\wininit.exe'
       - '\csrss.exe'
       - '\wmiprvse.exe'
       - '\MsMpEng.exe'
-  condition: selection and not filter_legit
+  filter_agent:              # ADD: exclude the Elastic Agent's own LSASS reads - precision
+    SourceImage|contains: '\Elastic\Agent\'
+  condition: selection and not 1 of filter_*
 falsepositives:
   - EDR/antivirus agents (e.g. Defender MsMpEng.exe) legitimately read LSASS memory
   - Backup, diagnostic, or crash-dump tooling that inspects process memory
