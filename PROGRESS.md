@@ -104,6 +104,10 @@ Case studies (docs/case-studies/):
       matched none of the shell/temp patterns). Overrode binary_path to cmd.exe → Rule 5 CATCH.
       Rule works as scoped (shell/PsExec services); documented two-tier coverage idea for binary
       services. Different finding type: rule scope/coverage tradeoff, not a bug.
+- [x] T1110 brute force — controlled 4625 burst (net use loop, fake account, no lockout). First
+      CORRELATION-rule validation: verified via ES|QL aggregation (stats count by TargetUserName |
+      where >= 10) → bruteforce_test event_count=30, over the ≥10 threshold. Clean catch, no tuning.
+      Skill: correlation-verify (aggregate/threshold), not single-event match.
 - [ ] remaining techniques…
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
