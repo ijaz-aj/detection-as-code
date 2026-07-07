@@ -14,23 +14,41 @@ instead of being hand-typed into a SIEM console and forgotten.
 
 ## Architecture (target end state)
 
-```
-  ┌────────────────────┐      Sysmon + Windows logs      ┌──────────────────────┐
-  │  Windows 10/11 VM  │  ──────────────────────────────▶│  Elastic Security     │
-  │  (VirtualBox)      │        via Elastic Agent        │  (single-node Docker) │
-  │  + Sysmon          │                                 │  + Kibana             │
-  │  + Atomic Red Team │◀── attack simulation drives ────│                       │
-  └────────────────────┘        the telemetry            └──────────────────────┘
-            ▲                                                        ▲
-            │ attack → detect → tune loop                           │ rules deployed / tested
-            │                                                        │
-  ┌─────────┴────────────────────────────────────────────────────── ┴──────────┐
-  │  Git repo (this project)                                                     │
-  │   detections/  →  Sigma rules  →  sigma-cli  →  Splunk SPL / KQL / Elastic   │
-  │   tests/       →  pytest validates every rule against docs/detection-standard│
-  │   .github/     →  CI lints + validates + test-compiles on every push         │
-  │   automation/  →  Python phishing / IOC triage tool                          │
-  └─────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    Dev(["👤 Detection Engineer"]):::person
+
+    subgraph REPO["📦 Source of Truth · Git Repo"]
+        direction LR
+        S["detections/<br/>Sigma rules → ATT&CK"]
+        T["tests/<br/>pytest validation"]
+        A["automation/<br/>Python IOC triage"]
+    end
+
+    subgraph CI["⚙️ CI/CD · GitHub Actions"]
+        direction LR
+        L["Lint"] --> V["Validate"] --> C["Compile<br/>(sigma-cli)"]
+        C --> O["Splunk SPL · Sentinel KQL · Elastic"]
+    end
+
+    subgraph LAB["🧪 Home Lab · VirtualBox"]
+        direction LR
+        ART["☢️ Atomic Red Team<br/>ATT&CK simulations"] -->|simulate| VM["🪟 Windows VM<br/>Sysmon + Elastic Agent"]
+        VM -->|Sysmon telemetry| SIEM["🔎 Elastic Security<br/>SIEM + Kibana"]
+    end
+
+    Dev -->|git push| REPO
+    REPO -->|on every push| CI
+    CI -->|deploy detections| SIEM
+    SIEM -.->|"attack → detect → tune"| Dev
+
+    classDef person fill:#e0e7ff,stroke:#6366f1,color:#312e81,font-weight:bold
+    classDef repo fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a
+    classDef ci fill:#ede9fe,stroke:#8b5cf6,color:#5b21b6
+    classDef lab fill:#dcfce7,stroke:#22c55e,color:#166534
+    class S,T,A repo
+    class L,V,C,O ci
+    class ART,VM,SIEM lab
 ```
 
 ## Key decisions
