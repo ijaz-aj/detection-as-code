@@ -99,6 +99,11 @@ Case studies (docs/case-studies/):
       reloaded; (2) precision — Elastic Agent (agentbeat.exe) flooded rule with 0x1010 FPs (136 hits)
       → excluded `\Elastic\Agent\` by path; (3) recall — dump's 0x1fffff full-access open was missed
       → added 0x1fffff. After tune: 136 → 2 clean rundll32→lsass hits. Best case study of the project.
+- [x] T1543.003 new service install — ATH test 2. SCOPE finding: default test installs a service
+      running its own binary (AtomicService.exe) → Rule 5 MISS by design (7045 landed fine, ImagePath
+      matched none of the shell/temp patterns). Overrode binary_path to cmd.exe → Rule 5 CATCH.
+      Rule works as scoped (shell/PsExec services); documented two-tier coverage idea for binary
+      services. Different finding type: rule scope/coverage tradeoff, not a bug.
 - [ ] remaining techniques…
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
