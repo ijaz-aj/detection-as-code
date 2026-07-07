@@ -10,6 +10,45 @@ CI/CD pipeline — the same way modern detection engineering teams manage detect
 
 ---
 
+## Architecture
+
+```mermaid
+flowchart TB
+    Dev(["👤 Detection Engineer"]):::person
+
+    subgraph REPO["📦 Source of Truth · Git Repo"]
+        direction LR
+        S["detections/<br/>Sigma rules → ATT&CK"]
+        T["tests/<br/>pytest validation"]
+        A["automation/<br/>Python IOC triage"]
+    end
+
+    subgraph CI["⚙️ CI/CD · GitHub Actions"]
+        direction LR
+        L["Lint"] --> V["Validate"] --> C["Compile<br/>(sigma-cli)"]
+        C --> O["Splunk SPL · Sentinel KQL · Elastic"]
+    end
+
+    subgraph LAB["🧪 Home Lab · VirtualBox"]
+        direction LR
+        ART["☢️ Atomic Red Team<br/>ATT&CK simulations"] -->|simulate| VM["🪟 Windows VM<br/>Sysmon + Elastic Agent"]
+        VM -->|Sysmon telemetry| SIEM["🔎 Elastic Security<br/>SIEM + Kibana"]
+    end
+
+    Dev -->|git push| REPO
+    REPO -->|on every push| CI
+    CI -->|deploy detections| SIEM
+    SIEM -.->|"attack → detect → tune"| Dev
+
+    classDef person fill:#e0e7ff,stroke:#6366f1,color:#312e81,font-weight:bold
+    classDef repo fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a
+    classDef ci fill:#ede9fe,stroke:#8b5cf6,color:#5b21b6
+    classDef lab fill:#dcfce7,stroke:#22c55e,color:#166534
+    class S,T,A repo
+    class L,V,C,O ci
+    class ART,VM,SIEM lab
+```
+
 ## What this project demonstrates
 
 **Built so far:**
@@ -27,6 +66,7 @@ CI/CD pipeline — the same way modern detection engineering teams manage detect
   every rule on each push *(Phase 4)*.
 - **ATT&CK coverage visibility** — an auto-generated MITRE ATT&CK Navigator layer *(Phase 4)*.
 - **Security automation** — a Python phishing / IOC triage tool with API enrichment *(Phase 5)*.
+
 
 ## Project status
 
