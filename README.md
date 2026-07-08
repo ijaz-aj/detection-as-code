@@ -8,8 +8,8 @@ A public, reproducible **Detection-as-Code** portfolio project: version-controll
 [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team), and shipped through a
 CI/CD pipeline — the same way modern detection engineering teams manage detections in production.
 
-> **Status:** Core complete — 12 rules, home-lab validation, a CI pipeline, and an ATT&CK coverage
-> map are all live (Phases 0–4). Final polish in progress. Built in public, one phase at a time.
+> **Status:** All six phases (0–5) shipped — 12 rules, home-lab validation, 8 case studies, a CI
+> pipeline, and an ATT&CK coverage map are live. Ongoing enhancements tracked in [`ROADMAP.md`](ROADMAP.md).
 
 ---
 
@@ -83,7 +83,7 @@ Built in public, one phase at a time. Detailed log in [`PROGRESS.md`](PROGRESS.m
 | 2 | Write the detections (12 Sigma rules, 7 tactics) | ✅ Done |
 | 3 | Attack → detect → tune with Atomic Red Team (8 case studies) | ✅ Done |
 | 4 | CI/CD pipeline & ATT&CK Navigator coverage map | ✅ Done |
-| 5 | Polish & publish | 🚧 In progress |
+| 5 | Polish & publish | ✅ Done |
 
 ## Featured case studies
 
@@ -168,14 +168,17 @@ Architecture and design decisions live in [`PROJECT.md`](PROJECT.md); the full b
 
 ## Roadmap
 
-The core is complete. Natural next steps toward a production-grade system:
+The core (Phases 0–5) is complete. A living backlog of enhancements lives in [`ROADMAP.md`](ROADMAP.md) —
+highlights:
 
-- **Broaden coverage** — add rules for the highest-frequency techniques in the target environment.
+- **Broaden coverage** — rules for more high-frequency techniques (Discovery, Lateral Movement, Impact)
+  and Linux / cloud telemetry.
 - **Automated deployment** — push validated rules straight into Elastic detection rules, closing the
   `CI → SIEM` loop from the architecture diagram.
-- **CI-generated coverage map** — regenerate the ATT&CK Navigator layer inside CI so it is guaranteed
-  current on every push.
+- **Golden-file compile tests** — assert every committed SIEM query still matches a fresh conversion.
 - **Threat-intel enrichment** — indicator-match rules driven by an IOC feed.
+
+See [`ROADMAP.md`](ROADMAP.md) for the full, categorized backlog.
 
 ## License
 

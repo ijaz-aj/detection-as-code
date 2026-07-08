@@ -159,7 +159,7 @@ two-layer sensor+index-mapping investigation (T1053.005). Next: Phase 4 (CI/CD +
       and fails CI (`git diff --exit-code`) if the committed `coverage-layer.json` is stale — so the map
       can never fall out of sync with the rules.
 
-## Phase 5 — Polish and publish  🚧 in progress (2026-07-08)
+## Phase 5 — Polish and publish  ✅ complete (2026-07-08)
 
 **Goal:** make the repo recruiter-ready and accurate now that the core is complete.
 
@@ -168,8 +168,6 @@ two-layer sensor+index-mapping investigation (T1053.005). Next: Phase 4 (CI/CD +
 - [x] Correctness pass: redacted a leaked lab password from PROGRESS.md; fixed "2/12" → "12/12";
       corrected the stale Navigator note.
 - [x] CI coverage-freshness gate added (above).
-- [ ] GitHub About description + topics + pin (in the GitHub UI).
-- [ ] CV / résumé bullets captured.
 
 > **Scope note (2026-07-08):** the original Phase 5 (Python phishing / IOC triage tool) was **descoped**
 > to keep this a laser-focused detection-engineering repo. That tool, if built, belongs in a separate
