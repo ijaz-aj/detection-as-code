@@ -8,7 +8,8 @@ A public, reproducible **Detection-as-Code** portfolio project: version-controll
 [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team), and shipped through a
 CI/CD pipeline — the same way modern detection engineering teams manage detections in production.
 
-> **Status:** 🚧 Under active construction. Built in public, one phase at a time.
+> **Status:** Core complete — 12 rules, home-lab validation, a CI pipeline, and an ATT&CK coverage
+> map are all live (Phases 0–4). Final polish in progress. Built in public, one phase at a time.
 
 ---
 
@@ -51,22 +52,24 @@ flowchart TB
     class ART,VM,SIEM lab
 ```
 
+> *Target architecture. Today, CI lints, validates, and compiles every rule on each push (the badge
+> above), and detections are validated by hand against Atomic Red Team in the lab. The automated
+> CI → SIEM deployment arrow is the production end-state, not yet wired in this lab build.*
+
 ## What this project demonstrates
 
-**Built so far:**
 - **Detection engineering** — 12 [Sigma](https://github.com/SigmaHQ/sigma) rules across
   7 ATT&CK tactics, each with full metadata and auto-compiled to Splunk SPL, Elastic, and
   Microsoft Sentinel (KQL) — 36 queries total, all passing lint validation.
 - **A reproducible home lab** — a Windows VM running Sysmon (SwiftOnSecurity config),
   shipping live telemetry into Elastic Security via Elastic Agent.
 - **Purple-team validation** — the *attack → detect → tune* loop driven by
-  [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team), with documented
-  case studies showing real false-positive tuning (see below).
-
-**Planned (see roadmap):**
-- **CI/CD for detections** — a GitHub Actions pipeline to lint, validate, and test-compile
-  every rule on each push *(Phase 4)*.
-- **ATT&CK coverage visibility** — an auto-generated MITRE ATT&CK Navigator layer *(Phase 4)*.
+  [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team), with 8 documented case
+  studies showing real sensor gaps, index-mapping fixes, and false-positive tuning (see below).
+- **CI/CD for detections** — a [GitHub Actions pipeline](.github/workflows/validate.yml) that
+  lints, validates, and test-compiles every rule on each push (green badge above).
+- **ATT&CK coverage visibility** — an auto-generated MITRE ATT&CK Navigator heatmap, built from
+  the rules' own tags (below).
 
 
 ## Project status
@@ -80,7 +83,7 @@ Built in public, one phase at a time. Detailed log in [`PROGRESS.md`](PROGRESS.m
 | 2 | Write the detections (12 Sigma rules, 7 tactics) | ✅ Done |
 | 3 | Attack → detect → tune with Atomic Red Team (8 case studies) | ✅ Done |
 | 4 | CI/CD pipeline & ATT&CK Navigator coverage map | ✅ Done |
-| 5 | Polish & publish | ⬜ Planned |
+| 5 | Polish & publish | 🚧 In progress |
 
 ## Featured case studies
 
@@ -137,12 +140,42 @@ detection-as-code/
 | Lab SIEM | Elastic Security (single-node, Docker) |
 | Endpoint telemetry | Windows VM + Sysmon (SwiftOnSecurity config) + Elastic Agent |
 | Attack simulation | Atomic Red Team |
-| CI/CD | GitHub Actions |
+| Validation / CI | pytest · GitHub Actions |
 
 ## Quickstart
 
-> Full setup instructions arrive as each phase lands. See [`PROGRESS.md`](PROGRESS.md) for current
-> status and [`PROJECT.md`](PROJECT.md) for architecture and design decisions.
+**Validate and compile the rules** (host machine, ~2 min — no lab required):
+
+```bash
+git clone https://github.com/ijaz-aj/detection-as-code.git
+cd detection-as-code
+python -m venv venv && source venv/Scripts/activate    # macOS/Linux: source venv/bin/activate
+pip install -r requirements.txt
+
+pytest -v                                              # validate every rule against the standard
+sigma check -x attacktag detections/                  # lint — confirm valid Sigma
+sigma convert -t splunk -p splunk_windows detections/ # compile to Splunk SPL
+python scripts/gen_navigator_layer.py                 # regenerate the ATT&CK coverage layer
+```
+
+(Elastic and Sentinel use rule-specific pipelines — see [`PROGRESS.md`](PROGRESS.md) Phase 2 for the exact
+conversion commands per backend.)
+
+**Stand up the home lab** (Windows VM + Sysmon → Elastic Security): follow [`lab/README.md`](lab/README.md).
+
+Architecture and design decisions live in [`PROJECT.md`](PROJECT.md); the full build log is in
+[`PROGRESS.md`](PROGRESS.md).
+
+## Roadmap
+
+The core is complete. Natural next steps toward a production-grade system:
+
+- **Broaden coverage** — add rules for the highest-frequency techniques in the target environment.
+- **Automated deployment** — push validated rules straight into Elastic detection rules, closing the
+  `CI → SIEM` loop from the architecture diagram.
+- **CI-generated coverage map** — regenerate the ATT&CK Navigator layer inside CI so it is guaranteed
+  current on every push.
+- **Threat-intel enrichment** — indicator-match rules driven by an IOC feed.
 
 ## License
 
