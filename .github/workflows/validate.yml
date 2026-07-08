@@ -66,3 +66,15 @@ jobs:
       #    so they aren't bulk-converted here; see PROGRESS.md Phase 2.)
       - name: Compile - every rule converts to Splunk SPL
         run: sigma convert -t splunk -p splunk_windows detections/ > /dev/null
+
+      # 7. COVERAGE MAP IS CURRENT — the ATT&CK Navigator layer is generated from
+      #    the rules' tags. Regenerate it here and fail if the committed copy is
+      #    stale, so the coverage map can never drift from the actual detections.
+      #    (Only the JSON layer is generated; the SVG heatmap is a manual export.)
+      - name: Coverage map is up to date
+        run: |
+          python scripts/gen_navigator_layer.py
+          if ! git diff --exit-code docs/attack-navigator/coverage-layer.json; then
+            echo "::error::coverage-layer.json is out of date. Run 'python scripts/gen_navigator_layer.py' and commit the result."
+            exit 1
+          fi

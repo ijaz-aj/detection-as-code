@@ -65,7 +65,7 @@ Conversion strategy (per rule's telemetry):
   (`-t esql`, Lucene/EQL can't do correlations); Sentinel Kusto backend has no correlation support yet
   so the KQL is hand-authored (documented in the rule's .kql file).
 
-Rules completed (2 / 12):
+Rules completed (12 / 12):
 - [x] 1. PowerShell encoded command — Execution / T1059.001 — Sysmon EID 1
 - [x] 2. LSASS memory access — Credential Access / T1003.001 — Sysmon EID 10
 - [x] 3. mshta/rundll32 abuse — Defense Evasion / T1218.005+011 — Sysmon EID 1
@@ -84,7 +84,8 @@ Rules completed (2 / 12):
 ## Phase 3 — Attack → detect → tune  ✅ complete (2026-07-08)
 
 Atomic Red Team installed on the VM (`C:\AtomicRedTeam`), Defender exclusion added.
-Verify detections against live ES with `scratchpad` queries / Python (elastic:DacLab-Elastic-2026).
+Verify detections against live ES with `scratchpad` queries / Python (auth as `elastic` using the
+`ELASTIC_PASSWORD` from the gitignored `lab/.env`).
 
 Case studies (docs/case-studies/):
 - [x] T1059.001 encoded PowerShell — ran ATH test 15 (`-E`), Rule 1 MISSED in Elastic (Lucene is
@@ -150,9 +151,25 @@ two-layer sensor+index-mapping investigation (T1053.005). Next: Phase 4 (CI/CD +
 - [x] `scripts/gen_navigator_layer.py` — generates an ATT&CK Navigator layer from the rules' own
       `attack.tXXXX` tags (single source of truth, no drift). Output `docs/attack-navigator/
       coverage-layer.json` (12 techniques, 7 tactics) + exported `coverage-heatmap.svg`, both embedded/
-      linked in README. Note: layer tagged attack v15; live Navigator is newer (harmless version prompt).
+      linked in README. Two gotchas solved: (1) the layer's `versions.attack` must match the live
+      Navigator (**v19**) or the cross-version conversion silently drops technique colors; (2) sub-
+      techniques hide under collapsed parents, so the script emits `showSubtechniques: true` expand-only
+      parent entries — without them only the 3 top-level techniques showed green.
+- [x] `.github/workflows/validate.yml` extended with a coverage-freshness step: regenerates the layer
+      and fails CI (`git diff --exit-code`) if the committed `coverage-layer.json` is stale — so the map
+      can never fall out of sync with the rules.
 
-## Phase 5 — Polish and publish  ⬜ not started
+## Phase 5 — Polish and publish  🚧 in progress (2026-07-08)
+
+**Goal:** make the repo recruiter-ready and accurate now that the core is complete.
+
+- [x] README polish: moved CI/CD + coverage map from "planned" into demonstrated capabilities; honest
+      "target architecture" caption on the diagram; real reproducible Quickstart; Roadmap section.
+- [x] Correctness pass: redacted a leaked lab password from PROGRESS.md; fixed "2/12" → "12/12";
+      corrected the stale Navigator note.
+- [x] CI coverage-freshness gate added (above).
+- [ ] GitHub About description + topics + pin (in the GitHub UI).
+- [ ] CV / résumé bullets captured.
 
 > **Scope note (2026-07-08):** the original Phase 5 (Python phishing / IOC triage tool) was **descoped**
 > to keep this a laser-focused detection-engineering repo. That tool, if built, belongs in a separate
