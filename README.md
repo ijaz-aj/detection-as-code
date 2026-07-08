@@ -1,5 +1,7 @@
 # Detection-as-Code
 
+[![validate-detections](https://github.com/ijaz-aj/detection-as-code/actions/workflows/validate.yml/badge.svg)](https://github.com/ijaz-aj/detection-as-code/actions/workflows/validate.yml)
+
 A public, reproducible **Detection-as-Code** portfolio project: version-controlled
 [Sigma](https://github.com/SigmaHQ/sigma) detection rules mapped to
 [MITRE ATT&CK](https://attack.mitre.org/), validated in a real home lab with
