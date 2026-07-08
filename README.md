@@ -91,6 +91,7 @@ tune out false positives**. Screenshots included.
 |-----------|-----------|---------------|
 | [PowerShell encoded command](docs/case-studies/T1059.001-powershell-encoded-command.md) | T1059.001 | An Elastic case-sensitivity gap made the rule miss the attack — diagnosed and hardened to catch it |
 | [LSASS memory access](docs/case-studies/T1003.001-lsass-memory-access.md) | T1003.001 | Fixed a missing-telemetry gap (Sysmon EID 10), then tuned out agent false positives and a missed access mask |
+| [Scheduled task creation](docs/case-studies/T1053.005-scheduled-task-creation.md) | T1053.005 | Two silent failures in two layers — a Windows audit-policy sensor gap, then an Elastic index-mapping gap (`_ignored`) — both fixed without touching the rule |
 | [New service install](docs/case-studies/T1543.003-new-service-install.md) | T1543.003 | A rule-scope tradeoff — catches shell-based services (PsExec/Cobalt Strike), skips arbitrary binaries |
 | [Failed-logon brute force](docs/case-studies/T1110-failed-logon-bruteforce.md) | T1110 | Correlating failed-logon bursts into a brute-force alert |
 | [Mshta execution](docs/case-studies/T1218.005-mshta.md) | T1218.005 | Spotting `mshta.exe` LOLBin abuse |

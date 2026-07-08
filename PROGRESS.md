@@ -112,6 +112,15 @@ Case studies (docs/case-studies/):
       and run). Clean catch: Rule 11 returned only the masquerade (Image=taskhostw.exe,
       OriginalFileName=PowerShell.EXE) and correctly ignored the legit powershell (filter works).
       Validates the PE-metadata-mismatch idea. Noted scope limit (curated OriginalFileName list).
+- [x] T1053.005 scheduled task — ATH test 2 (`SCHTASKS /Create /TN spawn /TR cmd.exe`). TWO findings in
+      TWO layers: (1) SENSOR — `auditpol` "Other Object Access Events" = No Auditing by default → no 4698
+      logged → enabled `/success`; (2) INDEX — 4698 landed and `TaskContent` XML was visible but rule
+      MISSED. Root cause: `winlog.event_data.TaskContent` mapped `keyword` w/ `ignore_above: 1024`; task
+      XML exceeds it → value stored in _source but NOT indexed (`_ignored`) → unsearchable. Fix at index
+      layer: `wildcard` override via `logs-system.security@custom` component template + data-stream
+      rollover (new `-000002` index = wildcard). Re-ran attack → Rule 6's ORIGINAL query catches, benign
+      Windows Update task correctly excluded. Elastic-specific (Splunk/Sentinel unaffected). New failure
+      archetype: recorded+visible but unsearchable (index layer). Screenshots 13–16.
 - [ ] remaining techniques…
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
