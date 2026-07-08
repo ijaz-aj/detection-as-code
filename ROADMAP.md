@@ -1,11 +1,12 @@
-# Roadmap & Improvement Backlog
+# Roadmap
 
 The core project (**Phases 0–5**) is complete: 12 Sigma rules across 7 ATT&CK tactics, a reproducible
 Elastic home lab, 8 *attack → detect → tune* case studies, a CI pipeline, and an auto-generated ATT&CK
 coverage map.
 
-This is a **living backlog** of enhancements. Pick any item, branch, build, and open a PR — CI will
-validate it. Effort/value legend: 🟢 quick win · 🟡 moderate · 🔴 larger project.
+This document records the **planned direction** — the enhancements a more production-grade version of
+this project would add. Items are grouped by area and tagged by rough effort: 🟢 small · 🟡 moderate ·
+🔴 larger.
 
 ---
 
@@ -25,9 +26,9 @@ validate it. Effort/value legend: 🟢 quick win · 🟡 moderate · 🔴 larger
 - [ ] 🟡 **False-positive baselining** over a longer lab run; record per-rule tuning deltas.
 
 ## 3. CI/CD & automation
-- [ ] 🟢 **Pre-commit hooks** (`sigma check` + `pytest`) so issues are caught before a push.
+- [ ] 🟢 **Pre-commit hooks** (`sigma check` + `pytest`) to catch issues before a push.
 - [ ] 🟢 Regenerate + **auto-commit the coverage SVG** in CI (currently a manual Navigator export).
-- [ ] 🟡 **Compile all three backends** in a CI matrix (not just the Splunk smoke test) — handle the
+- [ ] 🟡 **Compile all three backends** in a CI matrix (not just the Splunk smoke test) — handling the
       correlation rule (ES|QL) and Sentinel per-table pipelines.
 - [ ] 🟡 **Golden-file tests** — assert each committed `.spl`/`.lucene`/`.kql` matches a fresh
       conversion, so compiled outputs can't silently drift from the rule.
@@ -49,13 +50,11 @@ validate it. Effort/value legend: 🟢 quick win · 🟡 moderate · 🔴 larger
 - [ ] 🟡 **Coverage-over-time** — snapshot technique count per release and chart the growth.
 - [ ] 🟡 A **layered Navigator** view — detections vs. available data sources ("where am I blind?").
 
-## 7. Documentation & polish
-- [ ] 🟢 A **CONTRIBUTING.md** describing the rule standard and how CI validates a change.
+## 7. Documentation
 - [ ] 🟢 Map each rule to its **ATT&CK data source / component** (what telemetry it depends on).
 - [ ] 🟡 Short **blog writeups** derived from the strongest case studies (T1003.001, T1053.005).
 
 ---
 
-### Suggested first pick
-For a quick, high-value win that sharpens the "detections as software" story:
-**§3 pre-commit hooks** or **§4 the new-rule scaffolder** — each is roughly one short session.
+**Next up:** the highest-value near-term items are the pre-commit hooks (§3) and the new-rule
+scaffolder (§4) — both deepen the "detections as software" story with modest effort.
