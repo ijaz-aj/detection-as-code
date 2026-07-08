@@ -81,7 +81,7 @@ Rules completed (2 / 12):
 
 **Result:** 12 rules, 12 ATT&CK techniques, 7 tactics, all lint-clean; 36 compiled queries
 (12 Splunk SPL + 12 Elastic + 12 Sentinel KQL).
-## Phase 3 — Attack → detect → tune  🚧 in progress
+## Phase 3 — Attack → detect → tune  ✅ complete (2026-07-08)
 
 Atomic Red Team installed on the VM (`C:\AtomicRedTeam`), Defender exclusion added.
 Verify detections against live ES with `scratchpad` queries / Python (elastic:DacLab-Elastic-2026).
@@ -121,7 +121,17 @@ Case studies (docs/case-studies/):
       rollover (new `-000002` index = wildcard). Re-ran attack → Rule 6's ORIGINAL query catches, benign
       Windows Update task correctly excluded. Elastic-specific (Splunk/Sentinel unaffected). New failure
       archetype: recorded+visible but unsearchable (index layer). Screenshots 13–16.
-- [ ] remaining techniques…
+- [x] T1098 user added to admins — sensor already on (`auditpol` Security Group Management = Success,
+      default). ART test 1 was the WRONG tool (renames Administrator → 4781, not 4732) — used a
+      controlled `net user /add` + `net localgroup administrators /add` to fire 4732 (then reverted).
+      CLEAN CATCH, no tuning: Rule 8 matched the Administrators add (SID `S-1-5-32-544`) and correctly
+      ignored the auto "Users" add (`S-1-5-32-545`). Highlight: SID-based match (locale-independent,
+      evasion-resistant) vs name-based. Screenshot 17.
+
+**Phase 3 complete (2026-07-08): 8 documented attack→detect→tune case studies** spanning the full range
+of finding types — rule-logic bug (T1059.001), clean catches (T1218.005, T1036.003, T1098), compound
+sensor+precision+recall (T1003.001), scope tradeoff (T1543.003), correlation-threshold (T1110), and a
+two-layer sensor+index-mapping investigation (T1053.005). Next: Phase 4 (CI/CD + ATT&CK Navigator).
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
 ## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
 ## Phase 6 — Polish and publish  ⬜ not started

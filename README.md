@@ -77,7 +77,7 @@ Built in public, one phase at a time. Detailed log in [`PROGRESS.md`](PROGRESS.m
 | 0 | Repo scaffold & detection standards | ✅ Done |
 | 1 | Home lab — telemetry flowing to Elastic | ✅ Done |
 | 2 | Write the detections (12 Sigma rules, 7 tactics) | ✅ Done |
-| 3 | Attack → detect → tune with Atomic Red Team | 🚧 In progress |
+| 3 | Attack → detect → tune with Atomic Red Team (8 case studies) | ✅ Done |
 | 4 | CI/CD pipeline & ATT&CK Navigator coverage map | ⬜ Planned |
 | 5 | Python phishing / IOC triage tool | ⬜ Planned |
 | 6 | Polish & publish | ⬜ Planned |
@@ -85,7 +85,7 @@ Built in public, one phase at a time. Detailed log in [`PROGRESS.md`](PROGRESS.m
 ## Featured case studies
 
 Each writeup follows the same loop: **simulate the technique → confirm the detection fires →
-tune out false positives**. Screenshots included.
+diagnose and fix any gaps** (rule logic, sensor, or index mapping). Screenshots included.
 
 | Technique | ATT&CK ID | What it shows |
 |-----------|-----------|---------------|
@@ -96,6 +96,7 @@ tune out false positives**. Screenshots included.
 | [Failed-logon brute force](docs/case-studies/T1110-failed-logon-bruteforce.md) | T1110 | Correlating failed-logon bursts into a brute-force alert |
 | [Mshta execution](docs/case-studies/T1218.005-mshta.md) | T1218.005 | Spotting `mshta.exe` LOLBin abuse |
 | [Renamed system binary](docs/case-studies/T1036.003-renamed-system-binary.md) | T1036.003 | Flagging masquerading via renamed system binaries |
+| [User added to admins](docs/case-studies/T1098-user-added-to-admins.md) | T1098 | A clean SID-based catch — flags adds to Administrators, ignores the benign Users add |
 
 ## Repository layout
 
