@@ -1,0 +1,68 @@
+# GitHub Actions workflow: validate every detection rule on each push.
+#
+# This is the "robot reviewer." GitHub runs it automatically on a fresh cloud
+# machine whenever code is pushed or a pull request is opened. It gives three
+# guarantees about every rule in detections/:
+#   1. it is valid Sigma          (sigma check)
+#   2. it meets our standard      (pytest -> docs/detection-standard.md)
+#   3. it still compiles          (sigma convert)
+# If any step fails, the build goes red and the commit is flagged.
+
+name: validate-detections
+
+# --- When does this run? ----------------------------------------------------
+on:
+  push:
+    branches: [main]          # every push to main
+  pull_request:
+    branches: [main]          # every PR targeting main (checked before merge)
+  workflow_dispatch: {}       # a manual "Run workflow" button in the Actions tab
+
+# --- The single job: validate ----------------------------------------------
+jobs:
+  validate:
+    runs-on: ubuntu-latest    # a clean, throwaway Ubuntu VM provisioned per run
+
+    steps:
+      # 1. Get our code onto the runner.
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      # 2. Install Python. Pinned to 3.12 (stable, well-supported by the pySigma
+      #    backends). Rules are static YAML, so the exact minor version doesn't
+      #    change conversion output.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 3. Install the same tooling a contributor would: sigma-cli, the three
+      #    backends, pytest, pyyaml — all from requirements.txt. This is the
+      #    "clean-room reproducibility" check: if a dependency is missing or
+      #    wrong, it fails here, not silently on someone's laptop.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. LINT — is every rule valid Sigma? (structure, fields, logic parse)
+      #    -x attacktag excludes the one buggy validator in pySigma 1.4.0 that
+      #    mislabels correct SigmaHQ tactic tags (documented in the standard).
+      - name: Lint - every rule is valid Sigma
+        run: sigma check -x attacktag detections/
+
+      # 5. VALIDATE — does every rule meet OUR project standard?
+      #    (required fields, enums, ATT&CK tag pairing, concrete falsepositives)
+      - name: Validate - every rule meets the detection standard
+        run: pytest -v
+
+      # 6. COMPILE — does every rule still convert to a real SIEM query?
+      #    We smoke-test against Splunk: its backend is the most tolerant
+      #    (handles both single-event and correlation rules with one pipeline),
+      #    so a clean bulk conversion proves the rules are compilable. Output is
+      #    discarded (> /dev/null) - we only care that conversion succeeds.
+      #    (Elastic and Sentinel use rule-specific pipelines - Elastic needs
+      #    ES|QL for the correlation rule, Sentinel needs per-table pipelines -
+      #    so they aren't bulk-converted here; see PROGRESS.md Phase 2.)
+      - name: Compile - every rule converts to Splunk SPL
+        run: sigma convert -t splunk -p splunk_windows detections/ > /dev/null
