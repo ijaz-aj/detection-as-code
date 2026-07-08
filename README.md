@@ -79,7 +79,7 @@ Built in public, one phase at a time. Detailed log in [`PROGRESS.md`](PROGRESS.m
 | 1 | Home lab — telemetry flowing to Elastic | ✅ Done |
 | 2 | Write the detections (12 Sigma rules, 7 tactics) | ✅ Done |
 | 3 | Attack → detect → tune with Atomic Red Team (8 case studies) | ✅ Done |
-| 4 | CI/CD pipeline & ATT&CK Navigator coverage map | ⬜ Planned |
+| 4 | CI/CD pipeline & ATT&CK Navigator coverage map | ✅ Done |
 | 5 | Polish & publish | ⬜ Planned |
 
 ## Featured case studies
@@ -98,14 +98,32 @@ diagnose and fix any gaps** (rule logic, sensor, or index mapping). Screenshots 
 | [Renamed system binary](docs/case-studies/T1036.003-renamed-system-binary.md) | T1036.003 | Flagging masquerading via renamed system binaries |
 | [User added to admins](docs/case-studies/T1098-user-added-to-admins.md) | T1098 | A clean SID-based catch — flags adds to Administrators, ignores the benign Users add |
 
+## ATT&CK coverage
+
+The rules span **12 techniques across 7 ATT&CK tactics**. This heatmap is **auto-generated from the
+rules' own ATT&CK tags** by [`scripts/gen_navigator_layer.py`](scripts/gen_navigator_layer.py), so the
+coverage map can never drift from the actual detections.
+
+![ATT&CK Navigator coverage heatmap](docs/attack-navigator/coverage-heatmap.svg)
+
+Explore it interactively: load [`coverage-layer.json`](docs/attack-navigator/coverage-layer.json) into the
+[MITRE ATT&CK Navigator](https://mitre-attack.github.io/attack-navigator/) via **Open Existing Layer →
+Upload from local**. Regenerate after adding or retagging rules with:
+
+```bash
+python scripts/gen_navigator_layer.py
+```
+
 ## Repository layout
 
 ```
 detection-as-code/
 ├── detections/            # Sigma rules, organized by ATT&CK tactic
 ├── tests/                 # pytest suite that validates every rule against the standard
+├── scripts/               # Utility scripts (ATT&CK Navigator layer generator)
 ├── lab/                   # Home-lab setup (Docker Compose, agent configs, lab README)
 ├── docs/                  # Detection standard, case studies, coverage map, screenshots
+│   ├── attack-navigator/  # Auto-generated ATT&CK coverage layer (JSON) + heatmap (SVG)
 │   ├── case-studies/      # One attack→detect→tune writeup per technique
 │   └── screenshots/       # Evidence screenshots
 └── .github/workflows/     # CI/CD pipeline

@@ -1,0 +1,150 @@
+{
+  "name": "Detection-as-Code - Coverage",
+  "versions": {
+    "attack": "19",
+    "navigator": "5.1.0",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Techniques covered by the Sigma rules in this repository. Auto-generated from rule ATT&CK tags by scripts/gen_navigator_layer.py.",
+  "techniques": [
+    {
+      "techniqueID": "T1003.001",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: LSASS Memory Access for Credential Dumping",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1021.001",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: Remote Desktop (RDP) Interactive Logon",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1036.003",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: Renamed System Binary (Masquerading)",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1053.005",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: Suspicious Scheduled Task Creation",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1059",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: Office Application Spawning a Shell or Script Host",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1059.001",
+      "score": 2,
+      "color": "#2e7d32",
+      "comment": "Detected by: PowerShell Download Cradle; PowerShell Encoded Command Execution",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1071.004",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: DNS Query to Suspicious Top-Level Domain",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1098",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: User Added to Privileged Local Group",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1110",
+      "score": 2,
+      "color": "#2e7d32",
+      "comment": "Detected by: Brute Force - Multiple Failed Logons for a Single Account; Windows Failed Logon (Security 4625)",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1218.005",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: Suspicious Mshta or Rundll32 Proxy Execution",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1218.011",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: Suspicious Mshta or Rundll32 Proxy Execution",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1543.003",
+      "score": 1,
+      "color": "#2e7d32",
+      "comment": "Detected by: Suspicious New Service Installation",
+      "enabled": true
+    },
+    {
+      "techniqueID": "T1003",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1021",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1036",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1053",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1071",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1218",
+      "enabled": true,
+      "showSubtechniques": true
+    },
+    {
+      "techniqueID": "T1543",
+      "enabled": true,
+      "showSubtechniques": true
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#ffffff",
+      "#2e7d32"
+    ],
+    "minValue": 0,
+    "maxValue": 2
+  },
+  "legendItems": [
+    {
+      "label": "Covered by >= 1 rule",
+      "color": "#2e7d32"
+    }
+  ],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#205b8f",
+  "selectTechniquesAcrossTactics": true,
+  "sorting": 0
+}

@@ -132,7 +132,26 @@ Case studies (docs/case-studies/):
 of finding types — rule-logic bug (T1059.001), clean catches (T1218.005, T1036.003, T1098), compound
 sensor+precision+recall (T1003.001), scope tradeoff (T1543.003), correlation-threshold (T1110), and a
 two-layer sensor+index-mapping investigation (T1053.005). Next: Phase 4 (CI/CD + ATT&CK Navigator).
-## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
+## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ✅ complete (2026-07-08)
+
+**Goal:** treat detections like software — automated validation on every push + a coverage map.
+
+- [x] `tests/test_rules.py` — pytest suite validating every rule against docs/detection-standard.md.
+      Discovers all `detections/**/*.yml`, handles multi-doc correlation files, parametrizes so each
+      rule×check is its own case (118 tests). Checks: required fields, UUID id, status/level enums,
+      references non-empty, ISO date, ATT&CK technique+tactic tag pairing, detection|correlation logic
+      present, concrete falsepositives. All green locally.
+- [x] `.github/workflows/validate.yml` — GitHub Actions CI on push/PR/manual. Steps: checkout →
+      setup-python 3.12 → pip install -r requirements.txt → `sigma check -x attacktag` (lint) →
+      `pytest` (standard) → `sigma convert -t splunk -p splunk_windows` (compile smoke test). First run
+      green in 15s. CI status badge added to README. (Splunk chosen for the bulk compile smoke test —
+      most tolerant backend; Elastic needs ES|QL for the correlation rule, Sentinel needs per-table
+      pipelines, so those aren't bulk-converted in CI.)
+- [x] `scripts/gen_navigator_layer.py` — generates an ATT&CK Navigator layer from the rules' own
+      `attack.tXXXX` tags (single source of truth, no drift). Output `docs/attack-navigator/
+      coverage-layer.json` (12 techniques, 7 tactics) + exported `coverage-heatmap.svg`, both embedded/
+      linked in README. Note: layer tagged attack v15; live Navigator is newer (harmless version prompt).
+
 ## Phase 5 — Polish and publish  ⬜ not started
 
 > **Scope note (2026-07-08):** the original Phase 5 (Python phishing / IOC triage tool) was **descoped**
