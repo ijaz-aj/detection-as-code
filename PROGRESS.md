@@ -9,7 +9,7 @@ A running log of what was built in each phase. Newest entries at the top of each
 **Goal:** a clean, professional skeleton before any real detection content.
 
 - [x] `git init`, default branch renamed to `main`, local commit identity set
-- [x] Directory structure created (`detections/` per ATT&CK tactic, `tests/`, `automation/`,
+- [x] Directory structure created (`detections/` per ATT&CK tactic, `tests/`,
       `docs/`, `lab/`, `.github/workflows/`)
 - [x] `.gitignore` (secrets, venv, caches, generated reports)
 - [x] `README.md` (starter), `LICENSE` (MIT), `PROJECT.md`, `PROGRESS.md`
@@ -133,5 +133,8 @@ of finding types — rule-logic bug (T1059.001), clean catches (T1218.005, T1036
 sensor+precision+recall (T1003.001), scope tradeoff (T1543.003), correlation-threshold (T1110), and a
 two-layer sensor+index-mapping investigation (T1053.005). Next: Phase 4 (CI/CD + ATT&CK Navigator).
 ## Phase 4 — CI/CD pipeline & ATT&CK coverage map  ⬜ not started
-## Phase 5 — Python phishing / IOC triage tool  ⬜ not started
-## Phase 6 — Polish and publish  ⬜ not started
+## Phase 5 — Polish and publish  ⬜ not started
+
+> **Scope note (2026-07-08):** the original Phase 5 (Python phishing / IOC triage tool) was **descoped**
+> to keep this a laser-focused detection-engineering repo. That tool, if built, belongs in a separate
+> project. Roadmap is now 6 phases (0–5).

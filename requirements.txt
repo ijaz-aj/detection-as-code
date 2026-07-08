@@ -8,9 +8,6 @@ pysigma-backend-splunk          # Sigma -> Splunk SPL
 pysigma-backend-elasticsearch   # Sigma -> Elastic (ES|QL / Lucene / EQL)
 pysigma-backend-kusto           # Sigma -> Microsoft Sentinel (KQL / Kusto)
 
-# --- Automation (Phase 5 phishing/IOC triage tool) ---
-requests                        # HTTP client for VirusTotal / URLScan.io enrichment
-
 # --- Testing / validation ---
 pytest                          # runs the rule-validation test suite
 pyyaml                          # parse Sigma YAML in tests

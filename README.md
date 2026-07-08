@@ -20,7 +20,7 @@ flowchart TB
         direction LR
         S["detections/<br/>Sigma rules → ATT&CK"]
         T["tests/<br/>pytest validation"]
-        A["automation/<br/>Python IOC triage"]
+        D["docs/<br/>standard + case studies"]
     end
 
     subgraph CI["⚙️ CI/CD · GitHub Actions"]
@@ -44,7 +44,7 @@ flowchart TB
     classDef repo fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a
     classDef ci fill:#ede9fe,stroke:#8b5cf6,color:#5b21b6
     classDef lab fill:#dcfce7,stroke:#22c55e,color:#166534
-    class S,T,A repo
+    class S,T,D repo
     class L,V,C,O ci
     class ART,VM,SIEM lab
 ```
@@ -65,7 +65,6 @@ flowchart TB
 - **CI/CD for detections** — a GitHub Actions pipeline to lint, validate, and test-compile
   every rule on each push *(Phase 4)*.
 - **ATT&CK coverage visibility** — an auto-generated MITRE ATT&CK Navigator layer *(Phase 4)*.
-- **Security automation** — a Python phishing / IOC triage tool with API enrichment *(Phase 5)*.
 
 
 ## Project status
@@ -79,8 +78,7 @@ Built in public, one phase at a time. Detailed log in [`PROGRESS.md`](PROGRESS.m
 | 2 | Write the detections (12 Sigma rules, 7 tactics) | ✅ Done |
 | 3 | Attack → detect → tune with Atomic Red Team (8 case studies) | ✅ Done |
 | 4 | CI/CD pipeline & ATT&CK Navigator coverage map | ⬜ Planned |
-| 5 | Python phishing / IOC triage tool | ⬜ Planned |
-| 6 | Polish & publish | ⬜ Planned |
+| 5 | Polish & publish | ⬜ Planned |
 
 ## Featured case studies
 
@@ -104,11 +102,9 @@ diagnose and fix any gaps** (rule logic, sensor, or index mapping). Screenshots 
 detection-as-code/
 ├── detections/            # Sigma rules, organized by ATT&CK tactic
 ├── tests/                 # pytest suite that validates every rule against the standard
-├── automation/            # Python phishing / IOC triage tool
 ├── lab/                   # Home-lab setup (Docker Compose, agent configs, lab README)
 ├── docs/                  # Detection standard, case studies, coverage map, screenshots
 │   ├── case-studies/      # One attack→detect→tune writeup per technique
-│   ├── reports/           # Generated triage reports (gitignored)
 │   └── screenshots/       # Evidence screenshots
 └── .github/workflows/     # CI/CD pipeline
 ```
@@ -122,7 +118,6 @@ detection-as-code/
 | Endpoint telemetry | Windows VM + Sysmon (SwiftOnSecurity config) + Elastic Agent |
 | Attack simulation | Atomic Red Team |
 | CI/CD | GitHub Actions |
-| Automation | Python 3.11+ (standard library + `requests`) |
 
 ## Quickstart
 

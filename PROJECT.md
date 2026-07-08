@@ -22,7 +22,7 @@ flowchart TB
         direction LR
         S["detections/<br/>Sigma rules → ATT&CK"]
         T["tests/<br/>pytest validation"]
-        A["automation/<br/>Python IOC triage"]
+        D["docs/<br/>standard + case studies"]
     end
 
     subgraph CI["⚙️ CI/CD · GitHub Actions"]
@@ -46,7 +46,7 @@ flowchart TB
     classDef repo fill:#dbeafe,stroke:#3b82f6,color:#1e3a8a
     classDef ci fill:#ede9fe,stroke:#8b5cf6,color:#5b21b6
     classDef lab fill:#dcfce7,stroke:#22c55e,color:#166534
-    class S,T,A repo
+    class S,T,D repo
     class L,V,C,O ci
     class ART,VM,SIEM lab
 ```
@@ -62,7 +62,7 @@ flowchart TB
 | Endpoint telemetry | **Sysmon (SwiftOnSecurity config) + Elastic Agent** | SwiftOnSecurity config is a well-known, community-vetted baseline that cuts noise. |
 | Attack simulation | **Atomic Red Team** | Per-technique atomic tests map cleanly 1:1 to ATT&CK; ideal for attack→detect→tune. |
 | CI/CD | **GitHub Actions** | Native to GitHub, free for public repos, green-badge visibility for recruiters. |
-| Automation language | **Python 3.11+ (stdlib + requests)** | Minimal dependencies; readable; the lingua franca of SOC automation. |
+| Scope | **Detection engineering only** | Deliberately laser-focused on authoring, testing, validating, and shipping detections. SOC automation (phishing/IOC triage) was descoped to keep the repo's story sharp — it belongs in a separate project. |
 
 ## Environment notes
 

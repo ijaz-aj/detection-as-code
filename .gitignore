@@ -17,7 +17,3 @@ Thumbs.db
 # Editor
 .vscode/
 .idea/
-
-# Local reports that may contain real IOC lookups (demo outputs are fine to commit selectively)
-docs/reports/*.md
-!docs/reports/.gitkeep
