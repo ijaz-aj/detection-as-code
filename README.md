@@ -89,9 +89,9 @@ tune out false positives**. Screenshots included.
 
 | Technique | ATT&CK ID | What it shows |
 |-----------|-----------|---------------|
-| [PowerShell encoded command](docs/case-studies/T1059.001-powershell-encoded-command.md) | T1059.001 | Turning a noisy broad hunt into a clean, high-fidelity catch |
-| [LSASS memory access](docs/case-studies/T1003.001-lsass-memory-access.md) | T1003.001 | Detecting credential dumping, then tuning out false positives |
-| [New service install](docs/case-studies/T1543.003-new-service-install.md) | T1543.003 | Catching service-based persistence (Event ID 7045) |
+| [PowerShell encoded command](docs/case-studies/T1059.001-powershell-encoded-command.md) | T1059.001 | An Elastic case-sensitivity gap made the rule miss the attack — diagnosed and hardened to catch it |
+| [LSASS memory access](docs/case-studies/T1003.001-lsass-memory-access.md) | T1003.001 | Fixed a missing-telemetry gap (Sysmon EID 10), then tuned out agent false positives and a missed access mask |
+| [New service install](docs/case-studies/T1543.003-new-service-install.md) | T1543.003 | A rule-scope tradeoff — catches shell-based services (PsExec/Cobalt Strike), skips arbitrary binaries |
 | [Failed-logon brute force](docs/case-studies/T1110-failed-logon-bruteforce.md) | T1110 | Correlating failed-logon bursts into a brute-force alert |
 | [Mshta execution](docs/case-studies/T1218.005-mshta.md) | T1218.005 | Spotting `mshta.exe` LOLBin abuse |
 | [Renamed system binary](docs/case-studies/T1036.003-renamed-system-binary.md) | T1036.003 | Flagging masquerading via renamed system binaries |
