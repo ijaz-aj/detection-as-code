@@ -8,8 +8,8 @@ A public, reproducible **Detection-as-Code** portfolio project: version-controll
 [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team), and shipped through a
 CI/CD pipeline — the same way modern detection engineering teams manage detections in production.
 
-> **Status:** All six phases (0–5) shipped — 12 rules, home-lab validation, 8 case studies, a CI
-> pipeline, and an ATT&CK coverage map are live. Ongoing enhancements tracked in [`ROADMAP.md`](ROADMAP.md).
+> **Status:** Complete and reproducible — 12 Sigma rules, a home-lab validation pipeline, 8 case
+> studies, CI, and an ATT&CK coverage map are all live. Future enhancements tracked in [`ROADMAP.md`](ROADMAP.md).
 
 ---
 
