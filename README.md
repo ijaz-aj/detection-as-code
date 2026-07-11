@@ -71,20 +71,6 @@ flowchart TB
 - **ATT&CK coverage visibility** — an auto-generated MITRE ATT&CK Navigator heatmap, built from
   the rules' own tags (below).
 
-
-## Project status
-
-Built in public, one phase at a time. Detailed log in [`PROGRESS.md`](PROGRESS.md).
-
-| Phase | Focus | Status |
-|-------|-------|--------|
-| 0 | Repo scaffold & detection standards | ✅ Done |
-| 1 | Home lab — telemetry flowing to Elastic | ✅ Done |
-| 2 | Write the detections (12 Sigma rules, 7 tactics) | ✅ Done |
-| 3 | Attack → detect → tune with Atomic Red Team (8 case studies) | ✅ Done |
-| 4 | CI/CD pipeline & ATT&CK Navigator coverage map | ✅ Done |
-| 5 | Polish & publish | ✅ Done |
-
 ## Featured case studies
 
 Each writeup follows the same loop: **simulate the technique → confirm the detection fires →
